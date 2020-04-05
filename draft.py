@@ -1,4 +1,5 @@
 import pandas as pd
+from sql_queries import *
 
 # df = pd.read_json('data/log_data/2018/11/2018-11-01-events.json' ,lines=True)
 # # conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
@@ -8,24 +9,19 @@ import pandas as pd
 # # print(type(df['title'][0]))
 
 df = pd.read_json('data/log_data/2018/11/2018-11-01-events.json', lines=True, convert_dates=['ts'])
+# df2 = pd.read_json('data/song_data/A/A/A/TRAAAAW128F429D538.json', lines=True)
 # print(df)
 df = df[df['page']=='NextSong']
-# t = pd.to_datetime(df['ts'], unit='ms')
-# print(t)
-# print(df)
-# print(type(t))
-# print(t[2].dayofweek)
-user_id = df['userId'].tolist()
-first_name = df['firstName'].tolist()
-last_name = df['lastName'].tolist()
-gender = df['gender'].tolist()
-level = df['level'].tolist()
+t = pd.to_datetime(df['ts'], unit='ms')
 
-user_df = pd.DataFrame({'user_id':user_id,
-                     'first_name':first_name,
-                     'last_name':last_name,
-                     'gender': gender,
-                     'level': level})
-print(temp)
-# print(user_id)
-# print(type(user_id))
+for key,value in df.iterrows():
+    cur.execute()
+start_time = t.tolist()
+user_id = df['userId'].tolist()
+level = df['level'].tolist()
+song_id = songid.tolist()
+artist_id = artistid.tolist()
+session_id = df['sessionId'].tolist()
+location = df['location'].tolist()
+user_agent = df['userAgent'].tolist()
+print(user_id)

@@ -9,7 +9,7 @@ time_table_drop = "DROP TABLE IF EXISTS time;"
 # CREATE TABLES
 # {"num_songs": 1, "artist_id": "ARJIE2Y1187B994AB7", "artist_latitude": null, "artist_longitude": null, "artist_location": "", "artist_name": "Line Renaud", "song_id": "SOUPIRU12A6D4FA1E1", "title": "Der Kleine Dompfaff", "duration": 152.92036, "year": 0}
 
-songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays(songplay_id INT, 
+songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays(songplay_id SERIAL, 
                                                                 start_time INT, 
                                                                 user_id INT, 
                                                                 level INT, 
@@ -56,8 +56,8 @@ time_table_create = ("""CREATE TABLE IF NOT EXISTS time(start_time TIMESTAMP,
 
 # INSERT RECORDS
 
-songplay_table_insert = ("""INSERT INTO songplay(songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
-                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+songplay_table_insert = ("""INSERT INTO songplay(start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
 """)
 
 user_table_insert = ("""INSERT INTO users(user_id, first_name, last_name, gender, level)
@@ -79,7 +79,7 @@ time_table_insert = ("""INSERT INTO time(start_time, hour, day, week, month, yea
 
 # FIND SONGS
 
-song_select = ("""
+song_select = ("""SELECT song_id, artist_id FROM 
 """)
 
 # QUERY LISTS
