@@ -56,8 +56,8 @@ time_table_create = ("""CREATE TABLE IF NOT EXISTS time(start_time TIMESTAMP,
 
 # INSERT RECORDS
 
-songplay_table_insert = ("""INSERT INTO songplay(songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
-                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+songplay_table_insert = ("""INSERT INTO songplay(start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
 """)
 
 user_table_insert = ("""INSERT INTO users(user_id, first_name, last_name, gender, level)
@@ -77,9 +77,12 @@ time_table_insert = ("""INSERT INTO time(start_time, hour, day, week, month, yea
                         VALUES(%s,%s,%s,%s,%s,%s,%s)
 """)
 
-# FIND SONGS
+# FIND SONGS(For here, we are going to find a SPECIFIC songs meet the requirement after WHERE.)
 
-song_select = ("""
+song_select = ("""SELECT s.song_id, a.artist_id FROM artists AS a JOIN songs AS s ON s.artist_id = a.artist_id
+                  WHERE s.title = %s
+                  AND a.name = %s
+                  AND s.duration = %s;
 """)
 
 # QUERY LISTS

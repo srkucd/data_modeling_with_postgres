@@ -43,8 +43,6 @@ def process_log_file(cur, filepath):
         cur.execute(time_table_insert, list(row))
 
     # load user table
-#     user_data = ['user_id', 'first_name', 'last_name', 'gender', 'level']
-#     user_df = 
     user_id = df['userId'].tolist()
     first_name = df['firstName'].tolist()
     last_name = df['lastName'].tolist()
@@ -74,7 +72,7 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = 
+        songplay_data = [row.ts, row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent]
         cur.execute(songplay_table_insert, songplay_data)
 
 
