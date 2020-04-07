@@ -29,9 +29,9 @@ user_table_create = ("""CREATE TABLE IF NOT EXISTS users(user_id INT,
                                                             PRIMARY KEY(user_id))
 """)
 
-song_table_create = ("""CREATE TABLE IF NOT EXISTS songs(song_id INT,
+song_table_create = ("""CREATE TABLE IF NOT EXISTS songs(song_id VARCHAR,
                                                          title VARCHAR,
-                                                         artist_id INT,
+                                                         artist_id VARCHAR,
                                                          year INT,
                                                          duration INT,
                                                          PRIMARY KEY(song_id))

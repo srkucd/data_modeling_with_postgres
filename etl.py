@@ -20,7 +20,7 @@ def process_song_file(cur, filepath):
     artist_columns = ['artist_id', 'name', 'location', 'latitude', 'longitude']
     artist_data = []
     for each in artist_columns:
-        artist_data.append(df[each][0])
+        artist_data.append(df[each].values[0].tolist())
     cur.execute(artist_table_insert, artist_data)
 
 

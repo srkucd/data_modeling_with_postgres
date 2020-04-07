@@ -20,5 +20,17 @@ song_data = []
 for each in song_columns:
     song_data.append(df2[each][0])
 
-for each in song_data:
-    print(type(each))
+# for each in song_data:
+#     print(each)
+#     print(type(each))
+#     print('---')
+    
+# for each in song_data:
+#     if type(each) == 'numpy.int64':
+#         each.astype(int)
+        
+# for each in song_data:
+#     print(each)
+#     print(type(each))
+#     print('---')
+print(type(song_data))
