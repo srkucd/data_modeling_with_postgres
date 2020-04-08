@@ -11,16 +11,15 @@ def process_song_file(cur, filepath):
 
     # insert song record
     song_columns = ['song_id', 'title', 'artist_id', 'year', 'duration']
-    song_data = []
-    for each in song_columns:
-        song_data.append(df[each][0])
+    song_data = df[song_columns].values[0].tolist()
+#     song_data = []
+#     for each in song_columns:
+#         song_data.append(df[each][0])
     cur.execute(song_table_insert, song_data)
     
     # insert artist record
-    artist_columns = ['artist_id', 'name', 'location', 'latitude', 'longitude']
-    artist_data = []
-    for each in artist_columns:
-        artist_data.append(df[each].values[0].tolist())
+    artist_columns = ['artist_id','artist_name','artist_location','artist_latitude','artist_longitude']
+    artist_data = df[artist_columns].values[0].tolist()
     cur.execute(artist_table_insert, artist_data)
 
 
@@ -35,9 +34,9 @@ def process_log_file(cur, filepath):
     t = pd.to_datetime(df['ts'], unit='ms')
     
     # insert time data records
-    time_data = [[each, each.hour, each.day, each.week, each.month, each.year, each.weekday] for each in t]
+    time_data = [[each, each.hour, each.day, each.week, each.month, each.year, each.dayofweek] for each in t]
     column_labels = ['start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday']
-    time_df = pd.Dataframe(time_data, columns=column_labels)
+    time_df = pd.DataFrame(time_data, columns=column_labels)
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))
@@ -53,7 +52,7 @@ def process_log_file(cur, filepath):
                      'first_name':first_name,
                      'last_name':last_name,
                      'gender': gender,
-                     'level': level})
+                     'level': level}).drop_duplicates()
 
     # insert user records
     for i, row in user_df.iterrows():
