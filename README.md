@@ -91,6 +91,24 @@ Timestamps of records in songplays broken down into specific units.
 | weekday    | integer                     | 
 
 
+# How to Run:
+
+To run the project locally, open your Terminal or CL:
+
+
+And run the scripts to create database tables:
+
+``` sh
+./python3 create_tables.py
+```
+
+and populate data into tables:
+
+``` sh
+./python3 etl.py
+```
+
+
 During this program, I understand some of very important knowledge:
 
 \* The step of RDBMS based on python.

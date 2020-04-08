@@ -10,8 +10,8 @@ time_table_drop = "DROP TABLE IF EXISTS time;"
 # {"num_songs": 1, "artist_id": "ARJIE2Y1187B994AB7", "artist_latitude": null, "artist_longitude": null, "artist_location": "", "artist_name": "Line Renaud", "song_id": "SOUPIRU12A6D4FA1E1", "title": "Der Kleine Dompfaff", "duration": 152.92036, "year": 0}
 
 songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays(songplay_id SERIAL, 
-                                                                start_time TIMESTAMP, 
-                                                                user_id INT, 
+                                                                start_time TIMESTAMP NOT NULL, 
+                                                                user_id INT NOT NULL, 
                                                                 level VARCHAR, 
                                                                 song_id VARCHAR, 
                                                                 artist_id VARCHAR, 
@@ -51,7 +51,8 @@ time_table_create = ("""CREATE TABLE IF NOT EXISTS time(start_time TIMESTAMP,
                                                         week INT,
                                                         month INT,
                                                         year INT,
-                                                        weekday VARCHAR)
+                                                        weekday VARCHAR,
+                                                        PRIMARY KEY(start_time))
 """)
 
 # INSERT RECORDS
@@ -62,7 +63,7 @@ songplay_table_insert = ("""INSERT INTO songplays(start_time, user_id, level, so
 
 user_table_insert = ("""INSERT INTO users(user_id, first_name, last_name, gender, level)
                         VALUES (%s,%s,%s,%s,%s)
-                        ON CONFLICT (user_id) DO NOTHING
+                        ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level
 """)
 
 song_table_insert = ("""INSERT INTO songs(song_id, title, artist_id, year, duration)

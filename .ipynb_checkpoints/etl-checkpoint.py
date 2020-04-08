@@ -6,6 +6,15 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """
+    This function is used to select data from song related json files
+    Arguments:
+        cur: cursor of the database needs import data
+        filepath:directory of folder containing files
+        
+    Returns:
+    
+    """
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -24,6 +33,16 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    This function is used to select data from log related json files
+    
+    Arguments:
+        cur: cursor of the database needs import data
+        filepath:directory of folder containing files
+        
+    Returns:
+    
+    """
     # open log file
     df = pd.read_json(filepath, lines=True, convert_dates=['ts'])
 
@@ -34,9 +53,10 @@ def process_log_file(cur, filepath):
     t = pd.to_datetime(df['ts'], unit='ms')
     
     # insert time data records
+    #There is a duplicate, is that normal?
     time_data = [[each, each.hour, each.day, each.week, each.month, each.year, each.dayofweek] for each in t]
     column_labels = ['start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday']
-    time_df = pd.DataFrame(time_data, columns=column_labels)
+    time_df = pd.DataFrame(time_data, columns=column_labels).drop_duplicates()
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))
@@ -76,6 +96,10 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """
+    will process each data file in a give filepath using func
+    """
+
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
